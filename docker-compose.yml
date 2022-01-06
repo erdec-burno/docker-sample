@@ -1,0 +1,9 @@
+version: "2.0"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/app
+      - ./site.conf:/etc/nginx/conf.d/site.conf
