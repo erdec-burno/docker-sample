@@ -1,9 +1,6 @@
 FROM php:7.4-fpm
 
-WORKDIR /app
-
-COPY ./www/composer.json ./composer.json
-COPY ./www/composer.lock ./composer.lock
+#WORKDIR ${APP_PATH_CONTAINER}
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -29,15 +26,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 #RUN docker-php-ext-install pcntl
 #RUN docker-php-ext-install gd
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN groupadd --force -g 1000 www \
     && useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 www
 
 # Change current user to www
-#USER www
-
-RUN composer install --no-scripts --no-autoloader
+USER www
 
 EXPOSE 9000
 CMD ["php-fpm"]

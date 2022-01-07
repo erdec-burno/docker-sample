@@ -5,18 +5,23 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./www:/app
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: ${APP_PATH_CONTAINER}
     networks:
       - www
   php:
-    build:
-      context: .
-      dockerfile: ./php/Dockerfile
+    build: ./php
     volumes:
-      - ./www:/app
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
     networks:
       - www
+  composer:
+    image: composer:1.10
+    volumes:
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    working_dir: ${APP_PATH_CONTAINER}
+    command: composer install
 networks:
   www:
     driver: bridge
