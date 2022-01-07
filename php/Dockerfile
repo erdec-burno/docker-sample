@@ -1,7 +1,5 @@
 FROM php:7.4-fpm
 
-#WORKDIR ${APP_PATH_CONTAINER}
-
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
