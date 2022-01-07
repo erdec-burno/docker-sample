@@ -10,7 +10,9 @@ services:
     networks:
       - www
   php:
-    image: php:7.4-fpm
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
     volumes:
       - ./www:/app
     networks:
