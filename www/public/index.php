@@ -6,9 +6,9 @@ use Monolog\Handler\StreamHandler;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 
-$log = new Logger('message');
+/*$log = new Logger('message');
 $log->pushHandler(new StreamHandler(__DIR__.'/../logs.log'));
-$log->info('test message final! 2 :)');
+$log->info('test message final! 2 :)');*/
 echo "data from DB: " .config('DB_NAME');
 $cities = Capsule::table('cities')->limit(3)->get();
 echo "<pre>" . $cities . "</pre>";
