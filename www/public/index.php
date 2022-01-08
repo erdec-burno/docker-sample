@@ -3,10 +3,13 @@ require __DIR__.'/../vendor/autoload.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $log = new Logger('message');
 $log->pushHandler(new StreamHandler(__DIR__.'/../logs.log'));
 $log->info('test message final! 2 :)');
-//echo config('DB_NAME');
+echo "data from DB: " .config('DB_NAME');
+$cities = Capsule::table('cities')->limit(3)->get();
+echo "<pre>" . $cities . "</pre>";
 //echo phpinfo();

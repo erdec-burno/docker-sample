@@ -6,14 +6,29 @@ services:
       - "8080:80"
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     working_dir: ${APP_PATH_CONTAINER}
     networks:
       - www
   php:
-    build: ./php
+    build: ./docker/php
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    working_dir: ${APP_PATH_CONTAINER}
+    networks:
+      - www
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - www
   composer:
@@ -25,3 +40,6 @@ services:
 networks:
   www:
     driver: bridge
+volumes:
+  mysql:
+    driver: local
