@@ -13,6 +13,6 @@ pass _--volumes_ to also remove the data volume.
 
 #### Rules data settings on VPS (optional)
 In case, If current user is root:
-> chown -R www-data:www-data /<app-dir>
+> chown -R www-data:www-data /app-dir
 
-> chmod 777 /<app-dir>/www/logs
+> chmod 777 /app-dir/www/logs
