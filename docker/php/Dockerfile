@@ -14,12 +14,12 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev
 
+#COPY . ./
+RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer
+#RUN composer install
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install extensions
-RUN docker-php-ext-install pdo_mysql
-#RUN docker-php-ext-install gd
 
 RUN groupadd --force -g 1000 www \
     && useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 www
