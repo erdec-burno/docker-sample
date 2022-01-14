@@ -7,7 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $log = new Logger('message');
-$log->pushHandler(new StreamHandler('/app/logs/logs.log'));
+$log->pushHandler(new StreamHandler(__DIR__ . '/../logs/logs.log'));
 $log->info('test message final! 2 :)');
 echo "data from DB: " .config('DB_NAME');
 $cities = Capsule::table('cities')->limit(3)->get();
